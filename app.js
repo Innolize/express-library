@@ -3,15 +3,17 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var hbs = require('express-handlebars')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var catalogRouter = require('./routes/catalog')
 
 var app = express();
 
 var mongoose = require('mongoose')
 var mongoDB = 'mongodb+srv://innolize:gor2rancio@express-library.6qdgc.mongodb.net/express-library?retryWrites=true&w=majority'
-mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 
 var db = mongoose.connection
 db.on('error', console.error.bind(console, 'MongoDB conection error:'))
@@ -20,8 +22,16 @@ db.on('error', console.error.bind(console, 'MongoDB conection error:'))
 
 
 // view engine setup
+
+
+app.engine('hbs', hbs({
+  extname: 'hbs',
+  defaultLayout: 'main',
+  layoutDir: __dirname + '/views/layouts/',
+  views: path.join(__dirname, '/views')
+}));
+app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -31,6 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/catalog', catalogRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
