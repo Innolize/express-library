@@ -3,30 +3,32 @@ var Author = require('../models/author');
 var Genre = require('../models/genre');
 var BookInstance = require('../models/bookinstance');
 
-var async = import('async')
+var async = require('async')
 
 exports.index = function (req, res) {
-    res.render('index')
-    // async.parallel({
-    //     book_count: function (callback) {
-    //         Book.countDocuments({}, callback)
-    //     },
-    //     book_instance_count: function (callback) {
-    //         BookInstance.countDocuments({}, callback)
-    //     },
-    //     book_instance_available_count: function (callback) {
-    //         BookInstance.countDocuments({ status: "Available" }, callback)
-    //     },
-    //     author_count: function (callback) {
-    //         Author.countDocuments({}, callback)
-    //     },
-    //     genre_count: function (callback) {
-    //         Genre.countDocuments({}, callback)
-    //     }
-    // }, function (err, results) {
-    //     console.log(results)
+    async.parallel({
+        book_count: function (callback) {
+            Book.countDocuments({}, callback)
+        },
+        book_instance_count: function (callback) {
+            BookInstance.countDocuments({}, callback)
+        },
+        book_instance_available_count: function (callback) {
+            BookInstance.countDocuments({ status: "Available" }, callback)
+        },
+        author_count: function (callback) {
+            Author.countDocuments({}, callback)
+        },
+        genre_count: function (callback) {
+            Genre.countDocuments({}, callback)
+        }
+    }, function (err, results) {
+        console.log(results)
+        res.render('index',
+            { title: 'Local Library Home', error: err, data: results })
 
-    // })
+
+    })
 }
 
 // Display list of all books.
