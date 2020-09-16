@@ -1,0 +1,22 @@
+<h1>{{title}}</h1>
+
+<ul>
+    {{#each bookinstance_list as |bookinstance|}}
+    <li>
+        <a href={{bookinstance.url}}>{{bookinstance.book.title}}</a> : {{bookinstance.imprint}}
+        {{#nuevoIf type desired='Available' type=bookinstance.status}}
+        <span class='text-success'>{{bookinstance.status}}</span>
+        {{/nuevoIf}}
+        {{#nuevoIf type desired='Maintenance' type=bookinstance.status}}
+        <span class='text-danger '>{{bookinstance.status}}</span>
+        {{/nuevoIf}}
+        {{#nuevoIf type desired='Reserved' type=bookinstance.status}}
+        <span class='text-warning '>{{bookinstance.status}}</span>
+        {{/nuevoIf}}
+        {{#nuevoIf type desired='Loaned' type=bookinstance.status}}
+        <span>(due: {{bookinstance.due_back}})</span>
+        {{/nuevoIf}}
+
+    </li>
+    {{/each}}
+</ul>

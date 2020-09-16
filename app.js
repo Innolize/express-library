@@ -3,7 +3,10 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var hbs = require('express-handlebars')
+var exphbs = require('express-handlebars')
+const Handlebars = require('handlebars')
+
+const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -24,11 +27,22 @@ db.on('error', console.error.bind(console, 'MongoDB conection error:'))
 // view engine setup
 
 
-app.engine('hbs', hbs({
+app.engine('hbs', exphbs({
   extname: 'hbs',
   defaultLayout: 'main',
   layoutDir: __dirname + '/views/layouts/',
-  views: path.join(__dirname, '/views')
+  views: path.join(__dirname, '/views'),
+  handlebars: allowInsecurePrototypeAccess(Handlebars),
+  helpers: {
+    nuevoIf: function (conditional, options) {
+      console.log(options)
+      if (options.hash.desired === options.hash.type) {
+        return options.fn(this);
+      } else {
+        return options.inverse(this);
+      }
+    }
+  }
 }));
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, 'views'));

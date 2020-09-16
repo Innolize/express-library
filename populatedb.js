@@ -29,8 +29,8 @@ var genres = []
 var books = []
 var bookinstances = []
 
-function authorCreate(first_name, surname, d_birth, d_death, cb) {
-  authordetail = { first_name: first_name, surname: surname }
+function authorCreate(first_name, family_name, d_birth, d_death, cb) {
+  authordetail = { first_name: first_name, family_name: family_name }
   if (d_birth != false) authordetail.date_of_birth = d_birth
   if (d_death != false) authordetail.date_of_death = d_death
 
@@ -114,7 +114,7 @@ function createGenreAuthors(cb) {
       authorCreate('Ben', 'Bova', '1932-11-8', false, callback);
     },
     function (callback) {
-      authorCreate('Isaac', 'Asimov', '1920-01-02', '1992-04-06', callback);
+      authorCreate('Isaac', 'Asim ov', '1920-01-02', '1992-04-06', callback);
     },
     function (callback) {
       authorCreate('Bob', 'Billings', false, false, callback);
