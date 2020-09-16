@@ -4,16 +4,16 @@
     {{#each bookinstance_list as |bookinstance|}}
     <li>
         <a href={{bookinstance.url}}>{{bookinstance.book.title}}</a> : {{bookinstance.imprint}}
-        {{#nuevoIf type desired='Available' type=bookinstance.status}}
+        {{#nuevoIf 'Available' '===' bookinstance.status}}
         <span class='text-success'>{{bookinstance.status}}</span>
         {{/nuevoIf}}
-        {{#nuevoIf type desired='Maintenance' type=bookinstance.status}}
+        {{#nuevoIf 'Maintenance' '===' bookinstance.status}}
         <span class='text-danger '>{{bookinstance.status}}</span>
         {{/nuevoIf}}
-        {{#nuevoIf type desired='Reserved' type=bookinstance.status}}
+        {{#nuevoIf 'Loaned' '===' bookinstance.status}}
         <span class='text-warning '>{{bookinstance.status}}</span>
         {{/nuevoIf}}
-        {{#nuevoIf type desired='Loaned' type=bookinstance.status}}
+        {{#nuevoIf 'Available' '!=' bookinstance.status}}
         <span>(due: {{bookinstance.due_back_formatted}})</span>
         {{/nuevoIf}}
 

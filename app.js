@@ -34,12 +34,31 @@ app.engine('hbs', exphbs({
   views: path.join(__dirname, '/views'),
   handlebars: allowInsecurePrototypeAccess(Handlebars),
   helpers: {
-    nuevoIf: function (conditional, options) {
-      console.log(options)
-      if (options.hash.desired === options.hash.type) {
-        return options.fn(this);
-      } else {
-        return options.inverse(this);
+    nuevoIf: function (v1, operator, v2, options) {
+
+      switch (operator) {
+        case '==':
+          return (v1 == v2) ? options.fn(this) : options.inverse(this);
+        case '===':
+          return (v1 === v2) ? options.fn(this) : options.inverse(this);
+        case '!=':
+          return (v1 != v2) ? options.fn(this) : options.inverse(this);
+        case '!==':
+          return (v1 !== v2) ? options.fn(this) : options.inverse(this);
+        case '<':
+          return (v1 < v2) ? options.fn(this) : options.inverse(this);
+        case '<=':
+          return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+        case '>':
+          return (v1 > v2) ? options.fn(this) : options.inverse(this);
+        case '>=':
+          return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+        case '&&':
+          return (v1 && v2) ? options.fn(this) : options.inverse(this);
+        case '||':
+          return (v1 || v2) ? options.fn(this) : options.inverse(this);
+        default:
+          return options.inverse(this);
       }
     }
   }

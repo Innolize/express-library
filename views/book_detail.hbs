@@ -12,19 +12,17 @@
 
     {{#each book_instances}}
     <hr>
-    {{#nuevoIf type desired='Available' type=this.status}}
-    <p class='text-success'>{{this.status}}</p>
+    {{#nuevoIf 'Available' '===' this.status}}
+    <span class='text-success'>{{this.status}}</span>
     {{/nuevoIf}}
-    {{#nuevoIf type desired='Maintenance' type=this.status}}
-    <p class='text-danger'>{{this.status}}</p>
+    {{#nuevoIf 'Maintenance' '===' this.status}}
+    <span class='text-danger '>{{this.status}}</span>
     {{/nuevoIf}}
-    {{#nuevoIf type desired='Reserved' type=this.status}}
+    {{#nuevoIf 'Loaned' '===' this.status}}
     <span class='text-warning '>{{this.status}}</span>
     {{/nuevoIf}}
-    {{#nuevoIf type desired='Loaned' type=this.status}}
-    <span>
-        <strong>Due back:</strong> ({{this.due_back_formatted}})
-    </span>
+    {{#nuevoIf 'Available' '!=' this.status}}
+    <span>(due: {{this.due_back_formatted}})</span>
     {{/nuevoIf}}
     <p><strong>Id:</strong></p>
     <a href={{this.url}}>{{this.id}}</a>

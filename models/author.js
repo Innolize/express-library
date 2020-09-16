@@ -31,12 +31,6 @@ AuthorSchema
     return fullname;
   });
 
-// Virtual for author's lifespan
-AuthorSchema
-  .virtual('lifespan')
-  .get(function () {
-    return (this.date_of_death.getYear() - this.date_of_birth.getYear()).toString();
-  });
 
 AuthorSchema
   .virtual('date_of_birth_formatted')
@@ -48,6 +42,14 @@ AuthorSchema
   .get(function () {
     return this.date_of_birth ? moment(this.date_of_death).format('YYYY-MM-DD') : '';
   })
+
+// Virtual for author's lifespan
+AuthorSchema
+  .virtual('lifespan')
+  .get(function () {
+    return this.date_of_death_formatted + " - " + this.date_of_birth_formatted
+  });
+
 
 // Virtual for author's URL
 AuthorSchema

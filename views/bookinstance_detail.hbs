@@ -1,0 +1,20 @@
+<h1>ID: {{bookinstance._id}}</h1>
+
+<p><strong>Title: </strong></p>
+<a href={{bookinstance.book.url}}>{{bookinstance.book.title}}</a>
+<p><strong>Imprint: </strong></p> {{bookinstance.imprint}}
+
+<p><strong>Status: </strong></p>
+
+{{#nuevoIf 'Available' '===' bookinstance.status}}
+<span class='text-success'>{{bookinstance.status}}</span>
+{{/nuevoIf}}
+{{#nuevoIf 'Maintenance' '===' bookinstance.status}}
+<span class='text-danger '>{{bookinstance.status}}</span>
+{{/nuevoIf}}
+{{#nuevoIf 'Loaned' '===' bookinstance.status}}
+<span class='text-warning '>{{bookinstance.status}}</span>
+{{/nuevoIf}}
+{{#nuevoIf 'Available' '!=' bookinstance.status}}
+<span>(due: {{bookinstance.due_back_formatted}})</span>
+{{/nuevoIf}}
