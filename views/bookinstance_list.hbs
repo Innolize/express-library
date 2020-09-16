@@ -14,7 +14,7 @@
         <span class='text-warning '>{{bookinstance.status}}</span>
         {{/nuevoIf}}
         {{#nuevoIf type desired='Loaned' type=bookinstance.status}}
-        <span>(due: {{bookinstance.due_back}})</span>
+        <span>(due: {{bookinstance.due_back_formatted}})</span>
         {{/nuevoIf}}
 
     </li>
