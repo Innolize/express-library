@@ -1,0 +1,32 @@
+<h1>{{title}}</h1>
+<p><strong>Author:</strong></p>
+<a href={{book.author.url}}>{{book.author.name}}</a>
+<p><strong>Summary:</strong>{{book.summary}}</p>
+<p><strong>ISBN:</strong>{{book.isbn}}</p>
+{{#each book.genre}}
+<a href={{this.url}}>{{this.name}}</a>
+{{/each}}
+
+<div style="margin-left:20px; margin-top:20px">
+    <h4> Copies</h4>
+
+    {{#each book_instances}}
+    <hr>
+    {{#nuevoIf type desired='Available' type=this.status}}
+    <p class='text-success'>{{this.status}}</p>
+    {{/nuevoIf}}
+    {{#nuevoIf type desired='Maintenance' type=this.status}}
+    <p class='text-danger'>{{this.status}}</p>
+    {{/nuevoIf}}
+    {{#nuevoIf type desired='Reserved' type=this.status}}
+    <span class='text-warning '>{{this.status}}</span>
+    {{/nuevoIf}}
+    {{#nuevoIf type desired='Loaned' type=this.status}}
+    <span>
+        <strong>Due back:</strong> ({{this.due_back_formatted}})
+    </span>
+    {{/nuevoIf}}
+    <p><strong>Id:</strong></p>
+    <a href={{this.url}}>{{this.id}}</a>
+    {{/each}}
+</div>
