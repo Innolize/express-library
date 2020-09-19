@@ -1,0 +1,26 @@
+<h1>{{title}}</h1>
+
+{{log genre.name}}
+
+<form method="POST" action="">
+    <div class="form-group">
+        <label for="name">Genre: </label>
+        <input class='form-control' id='name' name='name' type="text" placeholder="Fantasy, Poetry, etc." 
+        {{#if genre}}
+        value={{genre.name}}
+        {{else}}
+        value=""
+        {{/if}} />
+    </div>
+    <button type="submit">Submit</button>
+</form>
+
+{{#if errors}}
+<ul>
+    {{#each errors as |error|}}
+
+    <li>{{error.msg}}</li>
+
+    {{/each}}
+</ul>
+{{/if}}

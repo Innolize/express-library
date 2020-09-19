@@ -60,7 +60,11 @@ app.engine('hbs', exphbs({
         default:
           return options.inverse(this);
       }
+    },
+    condicionalValue: function (v1, v2, prop) {
+      v1 === v2 ? '' : v2[prop]
     }
+
   }
 }));
 app.set('view engine', 'hbs')
